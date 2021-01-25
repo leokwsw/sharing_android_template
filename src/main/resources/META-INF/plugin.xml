@@ -1,22 +1,27 @@
 <idea-plugin>
-    <id>com.ztore.plugin</id>
-    <name>Ztore-Android-Template</name>
-    <vendor>CindyLam</vendor>
+  <id>com.ztore.plugin</id>
+  <name>Ztore-Android-Template</name>
+  <vendor>CindyLam</vendor>
 
-    <!-- Product and plugin compatibility requirements -->
-    <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
-    <depends>org.jetbrains.android</depends>
-    <depends>org.jetbrains.kotlin</depends>
-    <depends>com.intellij.modules.java</depends>
-    <depends>com.intellij.modules.platform</depends>
+  <!-- Product and plugin compatibility requirements -->
+  <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+  <depends>org.jetbrains.android</depends>
+  <depends>org.jetbrains.kotlin</depends>
+  <depends>com.intellij.modules.java</depends>
+  <depends>com.intellij.modules.platform</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.ztore.plugin.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.ztore.plugin.services.MyProjectService"/>
-    </extensions>
+<!--  <extensions defaultExtensionNs="com.intellij">-->
+<!--    <applicationService serviceImplementation="com.ztore.plugin.services.MyApplicationService"/>-->
+<!--    <projectService serviceImplementation="com.ztore.plugin.services.MyProjectService"/>-->
+<!--  </extensions>-->
 
-    <applicationListeners>
-        <listener class="com.ztore.plugin.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+<!--  <applicationListeners>-->
+<!--    <listener class="com.ztore.plugin.listeners.MyProjectManagerListener"-->
+<!--              topic="com.intellij.openapi.project.ProjectManagerListener"/>-->
+<!--  </applicationListeners>-->
+
+  <extensions defaultExtensionNs="com.android.tools.idea.wizard.template">
+<!--    <wizardTemplateProvider implementation="other.WizardTemplateProviderImpl" />-->
+    <wizardTemplateProvider implementation="activities.SamplePluginTemplateProviderImpl" />
+  </extensions>
 </idea-plugin>

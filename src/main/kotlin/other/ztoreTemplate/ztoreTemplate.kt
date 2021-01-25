@@ -1,11 +1,11 @@
-package other.mviSetup
+package other.ztoreTemplate
 
 import com.android.tools.idea.wizard.template.*
 
 val mviSetupTemplate
   get() = template {
     revision = 2
-    name = "MY Setup with Activity"
+    name = "Custom View XML Activity"
     description = "Creates a new activity along layout file."
     minApi = 16
     minBuildApi = 16
@@ -17,7 +17,7 @@ val mviSetupTemplate
     val packageNameParam = defaultPackageNameParameter
     val entityName = stringParameter {
       name = "Entity Name"
-      default = "Wurst"
+      default = "ZtoreCustomeView"
       help = "The name of the entity class to create and use in Activity"
       constraints = listOf(Constraint.NONEMPTY)
     }
@@ -37,7 +37,7 @@ val mviSetupTemplate
     )
 
     recipe = { data: TemplateData ->
-      mviSetup(
+      ztoreTemplate(
           data as ModuleTemplateData,
           packageNameParam.value,
           entityName.value,
@@ -46,10 +46,11 @@ val mviSetupTemplate
     }
   }
 
-val defaultPackageNameParameter get() = stringParameter {
-  name = "Package name"
-  visible = { !isNewModule }
-  default = "com.mycompany.myapp"
-  constraints = listOf(Constraint.PACKAGE)
-  suggest = { packageName }
-}
+val defaultPackageNameParameter
+  get() = stringParameter {
+    name = "Package name"
+    visible = { !isNewModule }
+    default = "com.mycompany.myapp"
+    constraints = listOf(Constraint.PACKAGE)
+    suggest = { packageName }
+  }
