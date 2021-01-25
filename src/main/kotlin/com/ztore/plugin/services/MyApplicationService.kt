@@ -1,6 +1,6 @@
-package org.jetbrains.plugins.template.services
+package com.ztore.plugin.services
 
-import org.jetbrains.plugins.template.MyBundle
+import com.ztore.plugin.MyBundle
 
 class MyApplicationService {
 
