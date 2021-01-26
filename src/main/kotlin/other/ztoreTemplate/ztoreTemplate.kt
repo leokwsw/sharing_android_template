@@ -1,47 +1,55 @@
 package other.ztoreTemplate
 
 import com.android.tools.idea.wizard.template.*
+import java.io.File
 
-val mviSetupTemplate
+val customViewTemplate
   get() = template {
-    revision = 2
-    name = "Custom View XML Activity"
-    description = "Creates a new activity along layout file."
-    minApi = 16
-    minBuildApi = 16
-    category = Category.Other // Check other categories
+    name = "Ztore Custom View Activity XML"
+    description = "Create a new activity along layout file."
+    revision = 1 // version
+    category = Category.Other //Android Template Category
     formFactor = FormFactor.Mobile
-    screens = listOf(WizardUiContext.FragmentGallery, WizardUiContext.MenuEntry,
-        WizardUiContext.NewProject, WizardUiContext.NewModule)
+    screens = listOf(
+      WizardUiContext.ActivityGallery,
+      WizardUiContext.MenuEntry
+//      WizardUiContext.NewProject,
+//      WizardUiContext.NewModule
+    )
 
-    val packageNameParam = defaultPackageNameParameter
-    val entityName = stringParameter {
-      name = "Entity Name"
-      default = "ZtoreCustomeView"
+    val activityClass = stringParameter {
+      name = "Entity Name (Without 'Activity')"
+      default = "Ztore"
       help = "The name of the entity class to create and use in Activity"
-      constraints = listOf(Constraint.NONEMPTY)
+      constraints = listOf(Constraint.UNIQUE, Constraint.NONEMPTY)
     }
 
     val layoutName = stringParameter {
       name = "Layout Name"
-      default = "my_act"
+      default = "activity_ztore"
       help = "The name of the layout to create for the activity"
       constraints = listOf(Constraint.LAYOUT, Constraint.UNIQUE, Constraint.NONEMPTY)
-      suggest = { "${activityToLayout(entityName.value.toLowerCase())}s" }
+      suggest = { activityToLayout(activityClass.value.toLowerCase()) }
     }
 
+    val packageName = defaultPackageNameParameter
+
     widgets(
-        TextFieldWidget(entityName),
-        TextFieldWidget(layoutName),
-        PackageNameWidget(packageNameParam)
+      TextFieldWidget(activityClass),
+      TextFieldWidget(layoutName),
+      PackageNameWidget(packageName),
     )
 
+    thumb {
+      File("template_empty_activity.png")
+    }
+
     recipe = { data: TemplateData ->
-      ztoreTemplate(
-          data as ModuleTemplateData,
-          packageNameParam.value,
-          entityName.value,
-          layoutName.value
+      ztoreRecipe(
+        data as ModuleTemplateData,
+        activityClass.value,
+        layoutName.value,
+        packageName.value
       )
     }
   }
@@ -54,3 +62,22 @@ val defaultPackageNameParameter
     constraints = listOf(Constraint.PACKAGE)
     suggest = { packageName }
   }
+
+// override toLowerCase from OrderDetails to order_details
+fun String.toLowerCase(): String {
+  val list = arrayListOf<String>()
+  this.toMutableList().forEach {
+    list.add(
+      if (it.isUpperCase()) {
+        if (list.size > 0) {
+          "_"
+        } else {
+          ""
+        } + it.toLowerCase()
+      } else {
+        it
+      }.toString()
+    )
+  }
+  return list.joinToString(separator = "")
+}
