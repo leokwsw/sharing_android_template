@@ -21,7 +21,7 @@ val customViewTemplate
       name = "Entity Name (Without 'Activity')"
       default = "Ztore"
       help = "The name of the entity class to create and use in Activity"
-      constraints = listOf(Constraint.UNIQUE, Constraint.NONEMPTY)
+      constraints = listOf(Constraint.CLASS, Constraint.UNIQUE, Constraint.NONEMPTY)
     }
 
     val layoutName = stringParameter {

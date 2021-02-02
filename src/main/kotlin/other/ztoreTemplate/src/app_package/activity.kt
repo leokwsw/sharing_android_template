@@ -13,9 +13,9 @@ fun activity(
 ) = """
 package $packageName
 
-import android.app.Activity
-import androidx.lifecycle.Observer
+import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import ${applicationPackage.applicationPackage}.R
 import ${applicationPackage.applicationPackage}.base.BaseActivity
 import ${applicationPackage.applicationPackage}.databinding.Activity${activityClass}Binding
